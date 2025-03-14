@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------------
+Test set: io.cucumber.junit.platform.engine.CucumberTestEngine
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.193 s <<< FAILURE! -- in io.cucumber.junit.platform.engine.CucumberTestEngine
+Comprar Passagem.Comprar com Sucesso -- Time elapsed: 0.063 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at steps.ComprarPassagemBDD.que_acesso_o_site(ComprarPassagemBDD.java:12)
+	at ✽.que acesso o site "https://www.blazedemo.com/"(file:///D:/Iterasys/Formação%20Teste%20de%20Software%20-%20142/2-%20Automação%20de%20Testes%20em%20Java/blazedemoIDE/src/test/resources/features/ComprarPassagemBDD.feature:6)
+
