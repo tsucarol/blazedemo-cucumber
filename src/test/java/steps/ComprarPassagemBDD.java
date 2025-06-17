@@ -9,23 +9,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import io.cucumber.java.Before;
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class ComprarPassagemBDD {
 
-    WebDriver driver = new ChromeDriver(); // instancia o objeto Selenium Webdriver como ChromeDriver (faz a comunicação entre o código com o navegador)
+    WebDriver driver;
     String origem, destino;
-
+    
     @Before
     public void iniciar() {
-        WebDriverManager.chromedriver().setup(); // garantir o driver correto para o Chrome
+        WebDriverManager.chromedriver().setup(); // garantir o driver correto para versão do Chrome
+        driver = new ChromeDriver();
+
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000)); // definir o tempo de espera implicito de 3 segundos
         driver.manage().window().maximize(); // exibir a janela maximizada
     }
@@ -35,16 +36,16 @@ public class ComprarPassagemBDD {
         driver.quit(); // destruir o objeto do Selenium
     }
 
-
     @Given("que acesso o site {string}")
     public void que_acesso_o_site(String url) {
-        driver.get(url); 
+        driver.get(url);
     }
 
-    @When("seleciono a origem {string} e destino {string}")
+    @When("seleciono a origem {string} e destino {string}") // Scenario
+    @When("seleciono a {string} e {string}") // Scenario Outline
     public void seleciono_a_origem_e_destino(String origem, String destino) {
         {
-            this.origem = origem;
+            this.origem = origem; // this = "esta classe"
             WebElement lista = driver.findElement(By.name("fromPort"));
             lista.click();
             lista.findElement(By.xpath("//option[. = '" + origem + "']")).click();
@@ -64,8 +65,8 @@ public class ComprarPassagemBDD {
 
     @Then("visualizo a lista de voos")
     public void visualizo_a_lista_de_voos() {
-        assertEquals("Flights from " + origem +  " to " + destino + ":",
-        driver.findElement(By.cssSelector("h3")).getText());
+        assertEquals("Flights from " + origem + " to " + destino + ":",
+                driver.findElement(By.cssSelector("h3")).getText());
     }
 
 }
