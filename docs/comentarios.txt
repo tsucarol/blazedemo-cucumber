@@ -1,12 +1,29 @@
-Abordagens úteis em projetos com vida útil maior:
+ABORDAGENS ÚTEIS EM PROJETOS COM VIDA ÚTIL MAIOR (LONGA DURAÇÃO)
 
-Projeto utilizando a abordagem BDD (Behavior Driven Development) - Desenvolvimento Direcionado por Comportamento
+=== Projeto utilizando a abordagem BDD (Behavior Driven Development) - Desenvolvimento Direcionado por Comportamento ===
 --> Foco do BDD é melhorar a comunicação do time
 --> Usar um plugin / framework chamado Cucumber
 --> Seguir a sintaxe Gherkin
 
 Um teste será composto por 2 arquivos:
 - arquivo de negócio, escrito em Gherkin (.feature)
-- arquivo de automação, que faz referência ao .feature
+- arquivo de automação, que faz referência a .feature (.java)
 
-Cada frase vai virar um bloco de código
+---------------------------------------------------------------------------------------
+
+=== Projeto utilizando a abordagem Page Objects / Page Factory ===
+--> Pode usar ou não BDD
+--> Foco na manutenção e reaproveitamento de longo prazo
+--> Útil para projetos com Ciclo de Vida de Desenvolvimento de Software (SDLC)
+
+
+Um teste será composto por vários arquivos:
+- um arquivo de mapeamento para cada página/tela ou região da página (*Page.java)
+- um arquivo de "CommonPage" para tudo que há em comum nos mapeamentos
+- um arquivo chamado "Base" para definir o Selenium que vai ser compartilhado
+- pode ter um arquivo de negócio escrito em Gherkin (.feature)
+- um arquivo de automação, que faz referência a .feature e ao mapeamento (.java)
+
+Por projeto:
+- um arquivo de hooks (Before e After centraliza)
+- um arquivo runner (executa o teste / maestro)
