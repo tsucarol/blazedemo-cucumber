@@ -16,17 +16,18 @@ public class HomePage extends CommonPage {
 
     /* 2. Elementos Mapeados - Funções */
 
-    // mapeamento para os combos Origem e Destino
+    // mapeamento para os combos Origem e Destino (são estruturas praticamente iguais)
     public By byLocal(String local) {
         return By.cssSelector("option[value=\"" + local + "\"]"); // == option[value="Rome"]
     }
 
+    // mapeamento do botão "Find Flights"
     @FindBy(css = "input[value]")
     WebElement btnFindFlights;
 
     /* 3. Ações com os elementos mapeados */
-    public void acessarHomePage() {
-        driver.get("https://blazedemo.com");
+    public void acessarHomePage(String url) {
+        driver.get(url);
     }
 
     public void selecionarOrigemDestino(String byOrigem, String byDestino) {
