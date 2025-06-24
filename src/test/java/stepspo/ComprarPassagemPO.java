@@ -19,6 +19,9 @@ public class ComprarPassagemPO {
     private HomePage homePage;          // Só eu posso usar a Home
     private ReservePage reservePage;    // Só eu posso usar a Reserve
 
+    public String origem;
+    public String destino;
+
     public ComprarPassagemPO (Base base){
         this.driver = base.driver;
     }
@@ -37,6 +40,8 @@ public class ComprarPassagemPO {
 
     @When("seleciono a {string} e {string} PO")
     public void seleciono_a_e_po(String origem, String destino) {
+        this.origem = origem; // this.origem é a variável origem | = origem vem do arquivo .feature
+        this.destino = destino;
         homePage.selecionarOrigemDestino(origem, destino);
 
         //ToDo: Na preparação de aula há um ajuste de sincronismo
@@ -53,6 +58,7 @@ public class ComprarPassagemPO {
     @Then("visualizo a lista de voos PO")
     public void visualizo_a_lista_de_voos_po() {
         assertEquals("BlazeDemo - reserve", reservePage.lerNomeDaGuia());
-        assertEquals("Flights from Paris to Buenos Aires:", reservePage.lerCabecalhoVoos());
+        assertEquals("Flights from " + this.origem + " to  " + this.destino + ":", reservePage.lerCabecalhoVoos());
+        assertEquals(driver, destino);
     }
 }
