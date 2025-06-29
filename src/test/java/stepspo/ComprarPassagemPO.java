@@ -44,8 +44,19 @@ public class ComprarPassagemPO {
         this.destino = destino;
         homePage.selecionarOrigemDestino(origem, destino);
 
-        //ToDo: Na preparação de aula há um ajuste de sincronismo
-        // para conseguir visualizar o robô escolhendo
+        /* Ativar a sincronização para o robô executar devagar
+        *  e podermos visualizar o funcionamento
+        *  IMPORTANTE: é só como curiosidade ou em caso de problemas
+        *  o indicado é deixar o robô executar o mais rápido possível
+        */ 
+
+        synchronized(driver){
+            try {
+                driver.wait(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @And("clico no botão Find Flights PO")
@@ -53,12 +64,24 @@ public class ComprarPassagemPO {
         homePage.clicarBtnFindFlights();
         // chama a página seguinte --> Reserve
         reservePage = new ReservePage(driver);
+
+        synchronized(driver){
+            try {
+                driver.wait(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Then("visualizo a lista de voos PO")
     public void visualizo_a_lista_de_voos_po() {
         assertEquals("BlazeDemo - reserve", reservePage.lerNomeDaGuia());
-        assertEquals("Flights from " + this.origem + " to  " + this.destino + ":", reservePage.lerCabecalhoVoos());
-        assertEquals(driver, destino);
+        assertEquals("Flights from " + this.origem + " to " + this.destino + ":", reservePage.lerCabecalhoVoos());
+    }
+
+    @When("clico no {int} PO")
+    public void clico_no_po(Integer ordem_do_voo) {
+        reservePage.clicarNoVoo(ordem_do_voo);
     }
 }

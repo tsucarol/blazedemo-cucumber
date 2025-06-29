@@ -1,10 +1,10 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 public class HomePage extends CommonPage {
     
@@ -17,12 +17,15 @@ public class HomePage extends CommonPage {
     /* 2. Elementos Mapeados - Funções */
 
     // mapeamento para os combos Origem e Destino (são estruturas praticamente iguais)
-    public By byLocal(String local) {
-        return By.cssSelector("option[value=\"" + local + "\"]"); // == option[value="Rome"]
-    }
+    @FindBy(name = "fromPort")
+    WebElement selectOrigem;
+
+    @FindBy(name = "toPort")
+    WebElement selectDestino;
 
     // mapeamento do botão "Find Flights"
-    @FindBy(css = "input[value]")
+    @FindBy(css = ".btn-primary")
+    //@FindBy(css = "input[value]")
     WebElement btnFindFlights;
 
     /* 3. Ações com os elementos mapeados */
@@ -30,12 +33,13 @@ public class HomePage extends CommonPage {
         driver.get(url);
     }
 
-    public void selecionarOrigemDestino(String byOrigem, String byDestino) {
-        driver.findElement(byLocal(byOrigem)); // seleciona na lista o valor de "Origem"
-        driver.findElement(byLocal(byDestino)); // seleciona na lista o valor de "Destino"
+    public void selecionarOrigemDestino(String origem, String destino) {
+        new Select(selectOrigem).selectByVisibleText(origem); // seleciona na lista o valor de "Origem"
+        new Select(selectDestino).selectByVisibleText(destino); // seleciona na lista o valor de "Destino"
     }
 
     public void clicarBtnFindFlights(){
         btnFindFlights.click();
     }
+    
 }

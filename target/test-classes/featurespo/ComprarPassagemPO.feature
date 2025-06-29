@@ -6,7 +6,8 @@ Feature: Comprar Passagem PO
         When seleciono a <origem> e <destino> PO
         And clico no botão Find Flights PO
         Then visualizo a lista de voos PO
+        When clico no <ordem_do_voo> PO
     Examples:
-    | origem      | destino  |
-    | "São Paolo" | "Cairo"  |
-    | "Boston"    | "London" |
+    | origem      | destino  |  ordem_do_voo |
+    | "São Paolo" | "Cairo"  |       2       |
+    | "Boston"    | "London" |       5       |
